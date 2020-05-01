@@ -10,7 +10,7 @@
     "start": "run-p start:**",
     "start:app": "npm run develop",
     "start:lambda": "netlify-lambda serve src/functions",
-    "build": "gatsby build && netlify-lambda build src/functions",
+    "build": "gatsby build && cd src/functions yarn install && cd .. netlify-lambda build src/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions",
     "clean": "gatsby clean"
@@ -24,10 +24,7 @@
     "gatsby-transformer-remark": "^2.8.3",
     "gatsby-transformer-sharp": "^2.5.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "dropbox": "^4.0.30",
-    "isomorphic-fetch": "^2.2.1",
-    "node-fetch": "^2.6.0"
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
     "http-proxy-middleware": "^1.0.3",

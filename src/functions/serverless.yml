@@ -1,3 +1,0 @@
-service: myService
-plugins:
-  - serverless-dotenv-plugin
