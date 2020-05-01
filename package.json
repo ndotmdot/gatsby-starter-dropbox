@@ -18,7 +18,6 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "gatsby": "^2.21.0",
-    "gatsby-plugin-netlify-functions": "^0.0.3",
     "gatsby-plugin-sharp": "^2.6.0",
     "gatsby-source-filesystem": "^2.3.0",
     "gatsby-transformer-remark": "^2.8.3",
