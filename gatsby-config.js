@@ -27,7 +27,6 @@ module.exports = {
       resolve: `gatsby-source-dropbox`,
       options: {
         accessToken: process.env.DROPBOX_TOKEN,
-        createFolderNodes: true
       },
     },
     `gatsby-transformer-remark`,
