@@ -6,7 +6,7 @@ const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 export async function handler(event, context, callback) {
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
 
-  dbx.filesListFolder({path: process.env.DROPBOX_BUILD_FOLDER})
+  dbx.filesListFolder({path: "/_Update_Page"})
   .then(function(response) {
     callback(null, {
       statusCode: 200, 
@@ -20,3 +20,4 @@ export async function handler(event, context, callback) {
     })
   });
 }
+
