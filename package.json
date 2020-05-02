@@ -9,7 +9,7 @@
     "develop": "gatsby develop",
     "start": "run-p start:**",
     "start:app": "npm run develop",
-    "start:lambda": "netlify-lambda serve src/functions",
+    "start:lambda": "NODE_ENV='development' netlify-lambda serve src/functions",
     "build": "gatsby build && cd src/functions yarn install && cd .. netlify-lambda build src/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions",

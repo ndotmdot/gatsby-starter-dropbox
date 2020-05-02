@@ -2,6 +2,7 @@ require('dotenv').config({ path: '.env' });
 var fetch = require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
+const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
 
 async function listFiles(dbx, path) {
   return dbx.filesListFolder({ path })
@@ -17,14 +18,13 @@ async function listDropboxFiles(dbx, path) {
   }
 }
 
-
 async function callBuildHook() {
   const dropboxStatus = {
     DropboxStatus: "New Files in update folder. Tying to call the buildhook..."
   }
 
   try {
-    const response = await fetch(`${process.env.NETLIFY_BUILD_HOOK}`, {
+    const response = await fetch(`${buildHook}`, {
       method: 'post',
       body:    JSON.stringify({}),
       headers: { 'Content-Type': 'application/json' },
