@@ -24,7 +24,11 @@ async function callBuildHook() {
   }
 
   try {
-    const response = await fetch(`${process.env.NETLIFY_BUILD_HOOK}`, {method: 'post',});
+    const response = await fetch(`${process.env.NETLIFY_BUILD_HOOK}`, {
+      method: 'post',
+      body:    JSON.stringify({}),
+      headers: { 'Content-Type': 'application/json' },
+  });
     console.log("callBuildHook -> response", response)
     const jsonResponse = await response.json();
     return {...dropboxStatus, ...jsonResponse}

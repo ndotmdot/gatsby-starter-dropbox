@@ -23,12 +23,12 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: `gatsby-source-dropbox`,
-      options: {
-        accessToken: process.env.DROPBOX_TOKEN,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-dropbox`,
+    //   options: {
+    //     accessToken: process.env.DROPBOX_TOKEN,
+    //   },
+    // },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
