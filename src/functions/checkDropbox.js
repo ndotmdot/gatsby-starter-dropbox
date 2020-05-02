@@ -2,8 +2,8 @@ require('dotenv').config({ path: '.env' });
 var fetch = require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
-// const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
-const buildHook = process.env.NETLIFY_BUILD_HOOK
+const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+// const buildHook = process.env.NETLIFY_BUILD_HOOK
 
 async function listFiles(dbx, path) {
   const files = await dbx.filesListFolder({ path })
@@ -34,6 +34,7 @@ async function handleDropboxUpdate(dbx, path) {
   const files = await listFiles(dbx, path)
 
   const canCallBuildHook = checkCanCallBuildHook(files)
+  console.log("CAN BUILD? ", canCallBuildHook)
 
   if(canCallBuildHook) {
     const hookResponse = await callBuildHook()
@@ -42,7 +43,9 @@ async function handleDropboxUpdate(dbx, path) {
   return {DropboxStatus: "No files in update folder. No need to trigger buildhook"}
 }
 
-export async function handler(event) {
+export async function handler(event, context) {
+  console.log("handler -> context", context)
+  console.log("handler -> event", event)
   const dbxWebHookChallenge = event.queryStringParameters.challenge
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
 

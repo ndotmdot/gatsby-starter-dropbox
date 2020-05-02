@@ -37,6 +37,7 @@ async function moveFiles(dbx, entries){
   if (async_job_id) {  
     do {  
       response = await dbx.filesMoveBatchCheckV2({ async_job_id })  
+      console.log("moveFiles -> response", response)
     } while (response['.tag'] === 'in_progress')  
     return response
   }  
