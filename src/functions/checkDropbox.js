@@ -6,7 +6,7 @@ const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 const buildHook = process.env.NETLIFY_BUILD_HOOK
 
 async function listFiles(dbx, path) {
-  return dbx.filesListFolder({ path })
+  return await dbx.filesListFolder({ path })
 }
 
 async function listDropboxFiles(dbx, path) {
@@ -33,7 +33,7 @@ async function callBuildHook() {
 }
 
 function checkCanCallBuildHook(files) {
-  const hasFiles =  files.entries.length > 0 && true  
+  const hasFiles = files.entries.length > 0 && true  
   const hasLockFolder = files.entries.find(file => file.name === "_Build_Lock") ? true : false
 
   return hasFiles && !hasLockFolder

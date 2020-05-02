@@ -4211,19 +4211,19 @@ var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isom
 const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox;
 
 async function listFiles(dbx, path) {
-  return dbx.filesListFolder({
+  return await dbx.filesListFolder({
     path
   });
 }
 
 async function createLockFolder(dbx, path) {
-  return dbx.filesCreateFolderV2({
+  return await dbx.filesCreateFolderV2({
     path
   });
 }
 
 async function deleteLockFolder(dbx, path) {
-  return dbx.filesDeleteV2({
+  return await dbx.filesDeleteV2({
     path
   });
 }

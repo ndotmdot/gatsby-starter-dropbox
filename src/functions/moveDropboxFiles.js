@@ -3,15 +3,15 @@ var fetch = require('isomorphic-fetch');
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
 async function listFiles(dbx, path) {
-  return dbx.filesListFolder({ path })
+  return await dbx.filesListFolder({ path })
 }
 
 async function createLockFolder(dbx, path) {
-  return dbx.filesCreateFolderV2({ path })
+  return await dbx.filesCreateFolderV2({ path })
 }
 
 async function deleteLockFolder(dbx, path) {
-  return dbx.filesDeleteV2({ path })
+  return await dbx.filesDeleteV2({ path })
 }
 
 function createMoveEntries(files) {
