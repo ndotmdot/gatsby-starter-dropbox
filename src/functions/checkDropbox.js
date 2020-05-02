@@ -17,6 +17,7 @@ async function listDropboxFiles(dbx, path) {
   }
 }
 
+
 async function callBuildHook() {
   const dropboxStatus = {
     DropboxStatus: "New Files in update folder. Tying to call the buildhook..."
