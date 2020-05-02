@@ -23,7 +23,8 @@ async function callBuildHook() {
   }
 
   try {
-    const response = await fetch('http://localhost:9000/callBuildHook');
+    const response = await fetch(`${process.env.NETLIFY_BUILD_HOOK}`, {method: 'post',});
+    console.log("callBuildHook -> response", response)
     const jsonResponse = await response.json();
     return {...dropboxStatus, ...jsonResponse}
   } catch (error) {
@@ -43,14 +44,20 @@ async function callBuildHookIfNeeded(dbx, path) {
 }
 
 export async function handler(event, context, callback) {
+  const dbxWebHookChallenge = event.queryStringParameters.challenge
+
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
 
   try {
     const buildStatus = await callBuildHookIfNeeded(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`)
+    console.log("handler -> buildStatus", buildStatus)
 
     callback(null, {
-      statusCode: 200, 
-      body: JSON.stringify({...buildStatus}),
+      statusCode: 200,
+      headers: {
+        contentType: 'text/plain'
+      },
+      body: dbxWebHookChallenge,
     })
   } catch(err) {
     callback(null, {

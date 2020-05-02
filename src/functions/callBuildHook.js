@@ -1,10 +1,13 @@
 export function handler(event, context, callback) {
   console.log("queryStringParameters", event.queryStringParameters)
+  const challenge = event.queryStringParameters.challenge
+
   callback(null, {
-    // return null to show no errors
-    statusCode: 200, // http status code
-    body: JSON.stringify({
-      buildHookMessage: "Buildhook called",
-    }),
+    statusCode: 200,
+    challenge,
+    headers: {
+      contentType: 'text/plain'
+    },
+    body: challenge,
   })
 }
