@@ -3,11 +3,13 @@ var fetch = require('isomorphic-fetch');
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
 async function listFiles(dbx, path) {
-  return await dbx.filesListFolder({ path }) 
+  const files = await dbx.filesListFolder({ path })
+  return files
 }
 
 async function createLockFolder(dbx, path) {
-  return await dbx.filesCreateFolderV2({ path })
+  const response = await dbx.filesCreateFolderV2({ path })
+  return response
 }
 
 async function deleteLockFolder(dbx, path) {
@@ -15,9 +17,7 @@ async function deleteLockFolder(dbx, path) {
 }
 
 function createMoveEntries(files) {
-  const filesEntries = files.entries.filter(file => file.name !== '_Build_Lock')
-
-  return filesEntries.map(file => {
+  return files.entries.map(file => {
     return {
       from_path: file.path_display,  
       to_path: file.path_display.substring(file.path_display.lastIndexOf('/'), file.path_display.length) 
@@ -52,12 +52,12 @@ async function handleMoveRequest(dbx, path) {
 
   if(needsMoving) {
     const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`
-    // await createLockFolder(dbx, lockFolder)
+    let folderLock = await createLockFolder(dbx, lockFolder)
 
     const moveEntries = createMoveEntries(fileList)
     const fileMoveResponse = await moveFiles(dbx, moveEntries)
 
-    await deleteLockFolder(dbx, lockFolder)
+    folderLock = await deleteLockFolder(dbx, lockFolder)
 
     return {
       msg: "Moved Files successfully",

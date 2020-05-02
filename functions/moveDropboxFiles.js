@@ -4211,15 +4211,17 @@ var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isom
 const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox;
 
 async function listFiles(dbx, path) {
-  return await dbx.filesListFolder({
+  const files = await dbx.filesListFolder({
     path
   });
+  return files;
 }
 
 async function createLockFolder(dbx, path) {
-  return await dbx.filesCreateFolderV2({
+  const response = await dbx.filesCreateFolderV2({
     path
   });
+  return response;
 }
 
 async function deleteLockFolder(dbx, path) {
@@ -4229,8 +4231,7 @@ async function deleteLockFolder(dbx, path) {
 }
 
 function createMoveEntries(files) {
-  const filesEntries = files.entries.filter(file => file.name !== '_Build_Lock');
-  return filesEntries.map(file => {
+  return files.entries.map(file => {
     return {
       from_path: file.path_display,
       to_path: file.path_display.substring(file.path_display.lastIndexOf('/'), file.path_display.length)
@@ -4268,11 +4269,11 @@ async function handleMoveRequest(dbx, path) {
   const needsMoving = checkNeedsMoving(fileList);
 
   if (needsMoving) {
-    const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`; // await createLockFolder(dbx, lockFolder)
-
+    const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`;
+    let folderLock = await createLockFolder(dbx, lockFolder);
     const moveEntries = createMoveEntries(fileList);
     const fileMoveResponse = await moveFiles(dbx, moveEntries);
-    await deleteLockFolder(dbx, lockFolder);
+    folderLock = await deleteLockFolder(dbx, lockFolder);
     return {
       msg: "Moved Files successfully",
       fileMoveResponse

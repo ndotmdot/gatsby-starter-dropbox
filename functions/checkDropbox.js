@@ -4213,18 +4213,12 @@ const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_
 
 
 const buildHook = process.env.NETLIFY_BUILD_HOOK;
-const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`;
 
 async function listFiles(dbx, path) {
-  return await dbx.filesListFolder({
+  const files = await dbx.filesListFolder({
     path
   });
-}
-
-async function createLockFolder(dbx, path) {
-  return await dbx.filesCreateFolderV2({
-    path
-  });
+  return files;
 }
 
 async function callBuildHook() {
@@ -4257,8 +4251,8 @@ async function handleDropboxUpdate(dbx, path) {
   const canCallBuildHook = checkCanCallBuildHook(files);
 
   if (canCallBuildHook) {
-    await createLockFolder(dbx, lockFolder);
-    return await callBuildHook();
+    const hookResponse = await callBuildHook();
+    return hookResponse;
   }
 
   return {

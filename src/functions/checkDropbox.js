@@ -4,17 +4,11 @@ const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
 // const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
 const buildHook = process.env.NETLIFY_BUILD_HOOK
-const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`
 
 async function listFiles(dbx, path) {
-  return await dbx.filesListFolder({ path })
+  const files = await dbx.filesListFolder({ path })
+  return files
 }
-
-
-async function createLockFolder(dbx, path) {
-  return await dbx.filesCreateFolderV2({ path })
-}
-
 
 async function callBuildHook() {
   try {
@@ -42,8 +36,8 @@ async function handleDropboxUpdate(dbx, path) {
   const canCallBuildHook = checkCanCallBuildHook(files)
 
   if(canCallBuildHook) {
-    await createLockFolder(dbx, lockFolder)
-    return await callBuildHook()
+    const hookResponse = await callBuildHook()
+    return hookResponse
   }
   return {DropboxStatus: "No files in update folder. No need to trigger buildhook"}
 }
