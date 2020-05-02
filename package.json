@@ -13,7 +13,8 @@
     "build": "gatsby build && cd src/functions yarn install && cd .. netlify-lambda build src/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "tunnel": "cd $HOME; ./ngrok http -subdomain=callbuildhook 9000"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

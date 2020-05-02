@@ -4229,7 +4229,8 @@ async function deleteLockFolder(dbx, path) {
 }
 
 function createMoveEntries(files) {
-  return files.entries.map(file => {
+  const filesEntries = files.entries.filter(file => file.name !== '_Build_Lock');
+  return filesEntries.map(file => {
     return {
       from_path: file.path_display,
       to_path: file.path_display.substring(file.path_display.lastIndexOf('/'), file.path_display.length)
@@ -4267,8 +4268,8 @@ async function handleMoveRequest(dbx, path) {
   const needsMoving = checkNeedsMoving(fileList);
 
   if (needsMoving) {
-    const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`;
-    await createLockFolder(dbx, lockFolder);
+    const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`; // await createLockFolder(dbx, lockFolder)
+
     const moveEntries = createMoveEntries(fileList);
     const fileMoveResponse = await moveFiles(dbx, moveEntries);
     await deleteLockFolder(dbx, lockFolder);
