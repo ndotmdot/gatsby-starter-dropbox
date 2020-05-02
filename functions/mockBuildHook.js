@@ -122,15 +122,15 @@ async function callMoveHook() {
 
 async function handler(event, context, callback) {
   const challenge = event.queryStringParameters.challenge;
-  const moveHookResponse = await callMoveHook();
-  callback(null, {
+  let moveHookResponse = await callMoveHook();
+  return {
     statusCode: 200,
     challenge,
     headers: {
       contentType: 'text/plain'
     },
     body: JSON.stringify(moveHookResponse)
-  });
+  };
 }
 
 /***/ }),

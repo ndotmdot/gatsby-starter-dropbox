@@ -19,14 +19,15 @@ async function callMoveHook() {
 export async function handler(event, context, callback) {
   const challenge = event.queryStringParameters.challenge
 
-  const moveHookResponse = await callMoveHook()
+  let moveHookResponse = await callMoveHook()
 
-  callback(null, {
+
+  return {
     statusCode: 200,
     challenge,
     headers: {
       contentType: 'text/plain'
     },
     body: JSON.stringify(moveHookResponse)
-  })
+  }
 }

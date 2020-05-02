@@ -4206,8 +4206,7 @@ __webpack_require__(/*! dotenv */ "./node_modules/dotenv/lib/main.js").config({
   path: '.env'
 });
 
-var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js"); // or another library of choice.
-
+var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js");
 
 const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox;
 
@@ -4217,15 +4216,27 @@ async function listFiles(dbx, path) {
   });
 }
 
+async function createLockFolder(dbx, path) {
+  return dbx.filesCreateFolderV2({
+    path
+  });
+}
+
+async function deleteLockFolder(dbx, path) {
+  return dbx.filesDeleteV2({
+    path
+  });
+}
+
 function createMoveEntries(files) {
-  const entries = files.entries.map(file => {
+  return files.entries.map(file => {
     return {
       from_path: file.path_display,
       to_path: file.path_display.substring(file.path_display.lastIndexOf('/'), file.path_display.length)
     };
   });
-  return entries;
-}
+} // TODO: add ty catch
+
 
 async function moveFiles(dbx, entries) {
   let response = await dbx.filesMoveBatchV2({
@@ -4247,29 +4258,43 @@ async function moveFiles(dbx, entries) {
   }
 }
 
-async function handler(event, context, callback) {
+function checkNeedsMoving(files) {
+  return files.entries.length > 0;
+}
+
+async function handleMoveRequest(dbx, path) {
+  const fileList = await listFiles(dbx, path);
+  const needsMoving = checkNeedsMoving(fileList);
+
+  if (needsMoving) {
+    const lockFolder = `${process.env.DROPBOX_BUILD_FOLDER}/_Build_Lock`;
+    await createLockFolder(dbx, lockFolder);
+    const moveEntries = createMoveEntries(fileList);
+    const fileMoveResponse = await moveFiles(dbx, moveEntries);
+    await deleteLockFolder(dbx, lockFolder);
+    return {
+      msg: "Moved Files successfully",
+      fileMoveResponse
+    };
+  } else {
+    return {
+      msg: "No Files to Move"
+    };
+  }
+}
+
+async function handler() {
   var dbx = new Dropbox({
     accessToken: `${process.env.DROPBOX_TOKEN}`,
     fetch: fetch
   });
-  let response = {};
-  const files = await listFiles(dbx, "/- Update Page");
-
-  if (files.entries.length > 0) {
-    const moveEntries = createMoveEntries(files);
-    response = await moveFiles(dbx, moveEntries);
-  } else {
-    response = files;
-  }
-
-  console.log("handler -> response", response);
-  callback(null, {
+  const response = await handleMoveRequest(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`);
+  return {
     statusCode: 200,
-    // http status code
     body: JSON.stringify({
       response
     })
-  });
+  };
 }
 
 /***/ }),

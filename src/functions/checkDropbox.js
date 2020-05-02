@@ -1,8 +1,11 @@
+import { fil } from 'date-fns/esm/locale';
+
 require('dotenv').config({ path: '.env' });
 var fetch = require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
 const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+console.log("buildHook", buildHook)
 
 async function listFiles(dbx, path) {
   return dbx.filesListFolder({ path })
@@ -19,56 +22,49 @@ async function listDropboxFiles(dbx, path) {
 }
 
 async function callBuildHook() {
-  const dropboxStatus = {
-    DropboxStatus: "New Files in update folder. Tying to call the buildhook..."
-  }
-
   try {
-    const response = await fetch(`${buildHook}`, {
+    await fetch(`${buildHook}`, {
       method: 'post',
       body:    JSON.stringify({}),
       headers: { 'Content-Type': 'application/json' },
   });
-    console.log("callBuildHook -> response", response)
-    const jsonResponse = await response.json();
-    return {...dropboxStatus, ...jsonResponse}
+    return {msg: "Build hook called"}
   } catch (error) {
-    return {...dropboxStatus, ...error}
+    return {error: "Cant't call Build hook"}
   }
 }
 
-async function callBuildHookIfNeeded(dbx, path) {
-  const files = await listDropboxFiles(dbx, path)
-  const shouldCallBuildHook = files.entries.length > 0 && true
+function checkCanCallBuildHook(files) {
+  const hasFiles =  files.entries.length > 0 && true  
+  const hasLockFolder = files.entries.find(file => file.name === "_Build_Lock") ? true : false
 
-  if(shouldCallBuildHook) {
+  return hasFiles && !hasLockFolder
+}
+
+async function handleDropboxUpdate(dbx, path) {
+  const files = await listDropboxFiles(dbx, path)
+
+  const canCallBuildHook = checkCanCallBuildHook(files)
+
+  if(canCallBuildHook) {
     const buildHookResponse = await callBuildHook()
     return buildHookResponse
   }
   return {DropboxStatus: "No files in update folder. No need to trigger buildhook"}
 }
 
-export async function handler(event, context, callback) {
+export async function handler(event) {
   const dbxWebHookChallenge = event.queryStringParameters.challenge
-
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
 
-  try {
-    const buildStatus = await callBuildHookIfNeeded(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`)
-    console.log("handler -> buildStatus", buildStatus)
+  await handleDropboxUpdate(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`)
 
-    callback(null, {
-      statusCode: 200,
-      headers: {
-        contentType: 'text/plain'
-      },
-      body: dbxWebHookChallenge,
-    })
-  } catch(err) {
-    callback(null, {
-      statusCode: 400, 
-      body: JSON.stringify({err}),
-    })
+  return {
+    statusCode: 200,
+    headers: {
+      contentType: 'text/plain'
+    },
+    body: dbxWebHookChallenge,
   }
 }
 
