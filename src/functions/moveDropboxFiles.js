@@ -25,7 +25,7 @@ function createMoveEntries(files) {
   })
 }
 
-// TODO: add ty catch
+// TODO: add try catch
 async function moveFiles(dbx, entries){  
   let response = await dbx.filesMoveBatchV2({
     entries, 

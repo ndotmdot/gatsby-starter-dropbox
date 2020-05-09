@@ -4213,6 +4213,35 @@ const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_
 
 const buildHook =  true ? process.env.MOCK_BUILD_HOOK : undefined; // const buildHook = process.env.NETLIFY_BUILD_HOOK
 
+var lastFunctionCall = undefined;
+const timeTillNextFunctionCall = 10;
+
+function getSecondsPassed(a, b) {
+  return Math.abs(a - b) / 1000;
+}
+
+function canProcessFunctionCall(ttnfc) {
+  console.log("canProcessFunctionCall -> ttnfc", ttnfc);
+  console.log("lastFunctionCall", lastFunctionCall);
+  const thisFunctionCall = Date.now();
+
+  if (lastFunctionCall === undefined) {
+    lastFunctionCall = thisFunctionCall;
+    console.log("canProcessFunctionCall -> lastFunctionCall", lastFunctionCall);
+    return true;
+  } else {
+    const timePassed = getSecondsPassed(lastFunctionCall, thisFunctionCall);
+    console.log("canProcessFunctionCall -> timePassed", timePassed);
+
+    if (timePassed > ttnfc) {
+      lastFunctionCall = thisFunctionCall;
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 async function listFiles(dbx, path) {
   const files = await dbx.filesListFolder({
     path
@@ -4260,22 +4289,26 @@ async function handleDropboxUpdate(dbx, path) {
   };
 }
 
-async function handler(event, context) {
-  console.log("handler -> context", context);
-  console.log("handler -> event", event);
+async function handler(event, context, callback) {
   const dbxWebHookChallenge = event.queryStringParameters.challenge;
   var dbx = new Dropbox({
     accessToken: `${process.env.DROPBOX_TOKEN}`,
     fetch: fetch
   });
-  await handleDropboxUpdate(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`);
-  return {
+  const canCall = canProcessFunctionCall(timeTillNextFunctionCall);
+
+  if (canCall) {
+    await handleDropboxUpdate(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`);
+  }
+
+  callback(null, {
+    // return null to show no errors
     statusCode: 200,
-    headers: {
-      contentType: 'text/plain'
-    },
-    body: dbxWebHookChallenge
-  };
+    // http status code
+    body: JSON.stringify({
+      msg: dbxWebHookChallenge
+    })
+  });
 }
 
 /***/ }),

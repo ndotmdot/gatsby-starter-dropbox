@@ -4237,7 +4237,7 @@ function createMoveEntries(files) {
       to_path: file.path_display.substring(file.path_display.lastIndexOf('/'), file.path_display.length)
     };
   });
-} // TODO: add ty catch
+} // TODO: add try catch
 
 
 async function moveFiles(dbx, entries) {
