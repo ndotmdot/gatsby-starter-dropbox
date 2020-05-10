@@ -120,6 +120,8 @@ function getCaller(event) {
 
 async function handleEvent(event, callback) {
   const caller = getCaller(event)
+  const dbxWebHookChallenge = event.queryStringParameters.challenge
+
   console.log("### Call from: ", caller)
 
   if(caller === `dropbox`) {
@@ -129,7 +131,7 @@ async function handleEvent(event, callback) {
       callback(null, {
         statusCode: 200,
         body: JSON.stringify({
-          msg: "Build already in progress. Aborting..."
+          msg: dbxWebHookChallenge
         }),
       })
     } else {
@@ -139,7 +141,7 @@ async function handleEvent(event, callback) {
       callback(null, {
         statusCode: 200,
         body: JSON.stringify({
-          msg: "Attempting Build"
+          msg: dbxWebHookChallenge
         }),
       })
     }
