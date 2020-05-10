@@ -120,7 +120,6 @@ function getCaller(event) {
 
 async function handleEvent(event, callback) {
   const caller = getCaller(event)
-  const dbxWebHookChallenge = event.queryStringParameters.challenge
 
   console.log("### Call from: ", caller)
 
@@ -128,22 +127,24 @@ async function handleEvent(event, callback) {
     if(buildInProgress) {
       console.log("### Build already in progress. Aborting...")
 
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          msg: dbxWebHookChallenge
-        }),
-      })
+      
+      return null
+      // callback(null, {
+      //   statusCode: 200,
+      //   body: JSON.stringify({
+      //     msg: "Build already in progress. Aborting..."
+      //   }),
+      // })
     } else {
       buildInProgress = true
       await attemptBuild()
 
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          msg: dbxWebHookChallenge
-        }),
-      })
+      // callback(null, {
+      //   statusCode: 200,
+      //   body: JSON.stringify({
+      //     msg: "Attempting to build..."
+      //   }),
+      // })
     }
   } 
 
@@ -160,11 +161,18 @@ async function handleEvent(event, callback) {
   }
 }
 
-export function handler(event, context, callback) {
-  // buildInProgress = false
+export async function handler(event, context, callback) {
+  const dbxWebHookChallenge = event.queryStringParameters.challenge
 
-  handleEvent(event, callback)
-
+  await handleEvent(event, callback)
+  
+  callback(null, {
+    // return null to show no errors
+    statusCode: 200, // http status code
+    body: JSON.stringify({
+      msg: dbxWebHookChallenge
+    }),
+  })
 }
 
 
