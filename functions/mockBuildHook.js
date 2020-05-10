@@ -126,17 +126,15 @@ async function moveBy() {
   }, 5000);
 }
 
-async function handler(event, context, callback) {
-  const challenge = event.queryStringParameters.challenge;
-  const movvv = await moveBy();
-  return {
+function handler(event, context, callback) {
+  const challenge = event.queryStringParameters.challenge; // const movvv = await moveBy();
+
+  callback(null, {
     statusCode: 200,
-    challenge,
-    headers: {
-      contentType: 'text/plain'
-    },
-    body: JSON.stringify('movvv')
-  };
+    body: JSON.stringify({
+      msg: "Buildhook called successfully"
+    })
+  });
 }
 
 /***/ }),

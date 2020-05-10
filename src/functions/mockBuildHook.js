@@ -22,17 +22,16 @@ async function moveBy() {
   }, 5000)
 }
 
-export async function handler(event, context, callback) {
+export function handler(event, context, callback) {
   const challenge = event.queryStringParameters.challenge
  
-  const movvv = await moveBy();
+  // const movvv = await moveBy();
 
-  return {
+  callback(null, {
     statusCode: 200,
-    challenge,
-    headers: {
-      contentType: 'text/plain'
-    },
-    body: JSON.stringify('movvv')
-  }
+    body: JSON.stringify({
+      msg: "Buildhook called successfully"
+    }),
+  })
+
 }
