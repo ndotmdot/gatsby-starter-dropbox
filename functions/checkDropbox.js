@@ -4209,10 +4209,10 @@ __webpack_require__(/*! dotenv */ "./node_modules/dotenv/lib/main.js").config({
 var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js"); // or another library of choice.
 
 
-const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox;
+const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox; // const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
 
-const buildHook =  true ? process.env.MOCK_BUILD_HOOK : undefined; // const buildHook = process.env.NETLIFY_BUILD_HOOK
 
+const buildHook = process.env.NETLIFY_BUILD_HOOK;
 var lastFunctionCall = undefined;
 const timeTillNextFunctionCall = 10;
 

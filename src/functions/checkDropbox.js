@@ -3,8 +3,8 @@ require('dotenv').config({ path: '.env' });
 var fetch = require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
-const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
-// const buildHook = process.env.NETLIFY_BUILD_HOOK
+// const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+const buildHook = process.env.NETLIFY_BUILD_HOOK
 
 var lastFunctionCall = undefined;
 const timeTillNextFunctionCall = 10;
