@@ -3,8 +3,8 @@ const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 const fetch = require('isomorphic-fetch'); // or another library of choice.
 
 let buildInProgress = false
-const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
-// const buildHook = process.env.NETLIFY_BUILD_HOOK
+// const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+const buildHook = process.env.NETLIFY_BUILD_HOOK
 
 // 1. Incomming getForkTsCheckerWebpackPluginHooks
 //   1. Decide if dbx or ntf

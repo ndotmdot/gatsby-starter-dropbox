@@ -4211,9 +4211,9 @@ const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_
 const fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js"); // or another library of choice.
 
 
-let buildInProgress = false;
-const buildHook =  true ? process.env.MOCK_BUILD_HOOK : undefined; // const buildHook = process.env.NETLIFY_BUILD_HOOK
-// 1. Incomming getForkTsCheckerWebpackPluginHooks
+let buildInProgress = false; // const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+
+const buildHook = process.env.NETLIFY_BUILD_HOOK; // 1. Incomming getForkTsCheckerWebpackPluginHooks
 //   1. Decide if dbx or ntf
 //     1. if buildInProgress
 //       1. if dbx, reject
