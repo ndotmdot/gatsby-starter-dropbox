@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./checkDropbox.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./folderState.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -4192,10 +4192,10 @@ module.exports = safer
 
 /***/ }),
 
-/***/ "./checkDropbox.js":
-/*!*************************!*\
-  !*** ./checkDropbox.js ***!
-  \*************************/
+/***/ "./folderState.js":
+/*!************************!*\
+  !*** ./folderState.js ***!
+  \************************/
 /*! exports provided: handler */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4206,40 +4206,9 @@ __webpack_require__(/*! dotenv */ "./node_modules/dotenv/lib/main.js").config({
   path: '.env'
 });
 
-var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js"); // or another library of choice.
-
+var fetch = __webpack_require__(/*! isomorphic-fetch */ "../../node_modules/isomorphic-fetch/fetch-npm-node.js");
 
 const Dropbox = __webpack_require__(/*! dropbox/dist/Dropbox-sdk.min */ "./node_modules/dropbox/dist/Dropbox-sdk.min.js").Dropbox;
-
-const buildHook =  true ? process.env.MOCK_BUILD_HOOK : undefined; // const buildHook = process.env.NETLIFY_BUILD_HOOK
-
-var lastFunctionCall = undefined;
-const timeTillNextFunctionCall = 10;
-
-function getSecondsPassed(a, b) {
-  return Math.abs(a - b) / 1000;
-}
-
-function canProcessFunctionCall(ttnfc) {
-  console.log("lastFunctionCall", lastFunctionCall);
-  const thisFunctionCall = Date.now();
-
-  if (lastFunctionCall === undefined) {
-    lastFunctionCall = thisFunctionCall;
-    console.log("canProcessFunctionCall -> lastFunctionCall", lastFunctionCall);
-    return true;
-  } else {
-    const timePassed = getSecondsPassed(lastFunctionCall, thisFunctionCall);
-    console.log("canProcessFunctionCall -> timePassed", timePassed);
-
-    if (timePassed > ttnfc) {
-      lastFunctionCall = thisFunctionCall;
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
 
 async function listFiles(dbx, path) {
   const files = await dbx.filesListFolder({
@@ -4248,88 +4217,19 @@ async function listFiles(dbx, path) {
   return files;
 }
 
-async function callBuildHook() {
-  console.log("callling buildhook");
-
-  try {
-    await fetch(`${buildHook}`, {
-      method: 'post',
-      body: JSON.stringify({}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return {
-      msg: "Build hook called"
-    };
-  } catch (error) {
-    return {
-      error: "Cant't call Build hook"
-    };
-  }
-}
-
-function checkCanCallBuildHook(files) {
-  const hasFiles = files.entries.length > 0 && true;
-  const hasLockFolder = files.entries.find(file => file.name === "_Build_Lock") ? true : false;
-  return hasFiles && !hasLockFolder;
-}
-
-async function handleDropboxUpdate(dbx, path) {
-  const files = await listFiles(dbx, path);
-  const canCallBuildHook = checkCanCallBuildHook(files);
-  console.log("CAN BUILD? ", canCallBuildHook);
-
-  if (canCallBuildHook) {
-    const hookResponse = await callBuildHook();
-    return hookResponse;
-  }
-
-  return {
-    DropboxStatus: "No files in update folder. No need to trigger buildhook"
-  };
-}
-
-async function handler(event, context, callback) {
-  const dbxWebHookChallenge = event.queryStringParameters.challenge;
+async function handler() {
   var dbx = new Dropbox({
     accessToken: `${process.env.DROPBOX_TOKEN}`,
     fetch: fetch
   });
-  const canCall = canProcessFunctionCall(timeTillNextFunctionCall);
-  console.log("canCall", canCall);
-
-  if (canCall) {
-    await handleDropboxUpdate(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`);
-  }
-
-  callback(null, {
-    // return null to show no errors
+  const response = await handleMoveRequest(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`);
+  return {
     statusCode: 200,
-    // http status code
     body: JSON.stringify({
-      msg: dbxWebHookChallenge
+      response
     })
-  });
-} // Dropbox Hook
-// handler -> event {
-//   path: '/checkDropbox',
-//   httpMethod: 'POST',
-//   queryStringParameters: [Object: null prototype] {},
-//   headers: {
-//     host: 'callbuildhook.ngrok.io',
-//     'user-agent': 'DropboxWebhooks/1.0',
-//     accept: '*/*',
-//     'accept-encoding': 'gzip,deflate',
-//     'x-dropbox-signature': 'a3a196266519e9924a7577b09344826aff1fdeab7c3303512cdec60128416a3f',
-//     'content-type': 'application/json',
-//     'content-length': '105',
-//     'x-forwarded-proto': 'https',
-//     'x-forwarded-for': '162.125.16.235'
-//   },
-//   body: '{"list_folder": {"accounts": ["dbid:AACjRzKi5cD0wVKK2FBdAohZg2z51kVOrEg"]}, "delta": {"users": [602793]}}',
-//   isBase64Encoded: false
-// }
+  };
+}
 
 /***/ }),
 

@@ -3,8 +3,8 @@ require('dotenv').config({ path: '.env' });
 var fetch = require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require("dropbox/dist/Dropbox-sdk.min").Dropbox;
 
-// const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
-const buildHook = process.env.NETLIFY_BUILD_HOOK
+const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
+// const buildHook = process.env.NETLIFY_BUILD_HOOK
 
 var lastFunctionCall = undefined;
 const timeTillNextFunctionCall = 10;
@@ -15,7 +15,6 @@ function getSecondsPassed(a, b) {
 }
 
 function canProcessFunctionCall(ttnfc) {
-  console.log("canProcessFunctionCall -> ttnfc", ttnfc)
   console.log("lastFunctionCall", lastFunctionCall)
   const thisFunctionCall = Date.now();
 
@@ -43,6 +42,7 @@ async function listFiles(dbx, path) {
 }
 
 async function callBuildHook() {
+  console.log("callling buildhook")
   try {
     await fetch(`${buildHook}`, {
       method: 'post',
@@ -76,13 +76,14 @@ async function handleDropboxUpdate(dbx, path) {
 }
 
 export async function handler(event, context, callback) {
+
   const dbxWebHookChallenge = event.queryStringParameters.challenge
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
 
   const canCall = canProcessFunctionCall(timeTillNextFunctionCall)
+  console.log("canCall", canCall)
   if(canCall) {
       await handleDropboxUpdate(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`)
-
   }
 
   callback(null, {
@@ -93,4 +94,28 @@ export async function handler(event, context, callback) {
     }),
   })
 }
+
+
+// Dropbox Hook
+
+// handler -> event {
+//   path: '/checkDropbox',
+//   httpMethod: 'POST',
+//   queryStringParameters: [Object: null prototype] {},
+//   headers: {
+//     host: 'callbuildhook.ngrok.io',
+//     'user-agent': 'DropboxWebhooks/1.0',
+//     accept: '*/*',
+//     'accept-encoding': 'gzip,deflate',
+//     'x-dropbox-signature': 'a3a196266519e9924a7577b09344826aff1fdeab7c3303512cdec60128416a3f',
+//     'content-type': 'application/json',
+//     'content-length': '105',
+//     'x-forwarded-proto': 'https',
+//     'x-forwarded-for': '162.125.16.235'
+//   },
+//   body: '{"list_folder": {"accounts": ["dbid:AACjRzKi5cD0wVKK2FBdAohZg2z51kVOrEg"]}, "delta": {"users": [602793]}}',
+//   isBase64Encoded: false
+// }
+
+
 
