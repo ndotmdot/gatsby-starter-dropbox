@@ -4368,14 +4368,13 @@ async function handleEvent(event, callback) {
 
 async function handler(event, context, callback) {
   const dbxWebHookChallenge = event.queryStringParameters.challenge;
+  console.log("handler -> dbxWebHookChallenge", dbxWebHookChallenge);
   await handleEvent(event, callback);
   callback(null, {
     // return null to show no errors
     statusCode: 200,
     // http status code
-    body: JSON.stringify({
-      msg: dbxWebHookChallenge
-    })
+    body: dbxWebHookChallenge
   });
 }
 
