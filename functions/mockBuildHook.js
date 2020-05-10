@@ -135,7 +135,7 @@ async function handler(event, context, callback) {
     headers: {
       contentType: 'text/plain'
     },
-    body: JSON.stringify(movvv)
+    body: JSON.stringify('movvv')
   };
 }
 

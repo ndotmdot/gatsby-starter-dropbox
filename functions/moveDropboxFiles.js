@@ -4286,7 +4286,8 @@ async function handleMoveRequest(dbx, path) {
   }
 }
 
-async function handler() {
+async function handler(event) {
+  console.log("handler -> event", event);
   var dbx = new Dropbox({
     accessToken: `${process.env.DROPBOX_TOKEN}`,
     fetch: fetch

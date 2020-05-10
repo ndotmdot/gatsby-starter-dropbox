@@ -14,13 +14,19 @@ function getSecondsPassed(a, b) {
   return Math.abs(a - b) / 1000
 }
 
+async function createLockFolder(dbx, path) {
+  const response = await dbx.filesCreateFolderV2({ path })
+  return response
+}
+
+
 function canProcessFunctionCall(ttnfc) {
   console.log("lastFunctionCall", lastFunctionCall)
   const thisFunctionCall = Date.now();
+  console.log("canProcessFunctionCall -> thisFunctionCall", thisFunctionCall)
 
   if(lastFunctionCall === undefined) {
     lastFunctionCall = thisFunctionCall
-    console.log("canProcessFunctionCall -> lastFunctionCall", lastFunctionCall)
     return true
   } else {
 

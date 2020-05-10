@@ -69,7 +69,8 @@ async function handleMoveRequest(dbx, path) {
   }
 }
 
-export async function handler() {
+export async function handler(event) {
+  console.log("handler -> event", event)
   var dbx = new Dropbox({ accessToken: `${process.env.DROPBOX_TOKEN}`, fetch: fetch });
   const response = await handleMoveRequest(dbx, `${process.env.DROPBOX_BUILD_FOLDER}`)
 
