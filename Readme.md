@@ -34,4 +34,3 @@ DROPBOX_TOKEN=Your-Dropbox-Token
 
 TODO:
 1. 3. ist falsh
-2. Dropbox challange kommt nicht an
