@@ -6,24 +6,6 @@ let buildInProgress = false
 // const buildHook = process.env.NODE_ENV == "development" ? process.env.MOCK_BUILD_HOOK : process.env.NETLIFY_BUILD_HOOK
 const buildHook = process.env.NETLIFY_BUILD_HOOK
 
-// 1. Incomming getForkTsCheckerWebpackPluginHooks
-//   1. Decide if dbx or ntf
-//     1. if buildInProgress
-//       1. if dbx, reject
-//       2. if ntf, call cleanupSem
-//     2. if !buildInProgress
-//       1. if call from dbx
-//         1. check if hase files
-//           if yes call build
-//           if no reject
-//        2. if call from ntf
-//            1. set buildInProgress to true
-//            2. moveFiles
-//            3. set buildInProgress to false
-//   2. If dbx and buildInProgress reject
-//   3. if ntf and buildInProgress
-
-
 // Netlify Functions
 // ————————————————————————————————————————————————————
 
@@ -118,58 +100,32 @@ function getCaller(event) {
   if(isNetlify) return `netlify`
 }
 
-async function handleEvent(event, callback) {
+async function handleEvent(event) {
   const caller = getCaller(event)
-
   console.log("### Call from: ", caller)
 
   if(caller === `dropbox`) {
     if(buildInProgress) {
       console.log("### Build already in progress. Aborting...")
-
-      
       return null
-      // callback(null, {
-      //   statusCode: 200,
-      //   body: JSON.stringify({
-      //     msg: "Build already in progress. Aborting..."
-      //   }),
-      // })
     } else {
       buildInProgress = true
       await attemptBuild()
-
-      // callback(null, {
-      //   statusCode: 200,
-      //   body: JSON.stringify({
-      //     msg: "Attempting to build..."
-      //   }),
-      // })
     }
   } 
 
   if(caller === `netlify`) {
-    // set flag and cleanup and unset flag
+    console.log("### Starting Cleanup...")
     await cleanUp()
-
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({
-        msg: "Cleanup done"
-      }),
-    })
   }
 }
 
 export async function handler(event, context, callback) {
   const dbxWebHookChallenge = event.queryStringParameters.challenge
-  console.log("handler -> dbxWebHookChallenge", dbxWebHookChallenge)
-
-  await handleEvent(event, callback)
+  await handleEvent(event)
   
   callback(null, {
-    // return null to show no errors
-    statusCode: 200, // http status code
+    statusCode: 200,
     body: dbxWebHookChallenge,
   })
 }
