@@ -27,8 +27,10 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prebuild": "cd functions && npm i && cd ..",
     "build": "gatsby build",
-    "develop": "netlify dev -c gatsby develop",
+    "develop": "gatsby develop",
+    "netlify:dev": "netlify dev -c 'gatsby develop'",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
