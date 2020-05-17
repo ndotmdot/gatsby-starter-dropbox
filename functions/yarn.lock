@@ -15,10 +15,10 @@ buffer@^5.0.8:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
 
-dropbox-trigger-netlify@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/dropbox-trigger-netlify/-/dropbox-trigger-netlify-0.0.11.tgz#95556ca26724d6c06e51e9b7ca24b37476da95fa"
-  integrity sha512-sKD5AgjGIpjDWb/RKa/mbewS/SUko6rZ7E5AP5+vNOohe5xGLEEJa/f64P+EXvhYuqxzdxaNepJApwNOH68MNQ==
+dropbox-trigger-netlify@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/dropbox-trigger-netlify/-/dropbox-trigger-netlify-0.0.12.tgz#ec1c9dedc958b248a183dbe49c9f8591dabf61b0"
+  integrity sha512-Z/7+CbiYogpLhFJ1sOULAfbIHpV8FV8aveLlDXrwr58IB/pxYmo4Glbn+ACanRb7n0+6lQnUHIPlQpdUVxuPaA==
   dependencies:
     dropbox "^4.0.30"
     isomorphic-fetch "^2.2.1"
