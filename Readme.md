@@ -17,14 +17,14 @@ DROPBOX_TOKEN=Your-Dropbox-Token
 ```
 
 ### 4. Add folders to Dropbox App
-Go to your Dropbox app folder  at `./Apps/[your-folder-name]` and add the following folders.
+Go to your Dropbox app folder  at `./Apps/[your-dropbox-app-name]` and add the following folders.
 
 ```markdown
-+-- Your Dropbox App Root Name
-|   +-- _Update
-|   +-- Content
-|   |   +--Whatever Files you need.md
-|   |   +--Whatever Folders you need
+.
++-- _Update
++-- Content
+|   +--Whatever Files you need.md
+|   +--Whatever Folders you need
 ```
 
 Alternatively you can [download the demo content](#) to make the starter works like in this demo.
@@ -41,7 +41,7 @@ NETLIFY_BUILD_HOOK=Your-Hook-You-Just-Added
 ```
 
 ### 8. Create Netlify Deploy Notifications
-Got to your Netlify project to settings/deploys#deploy-notifications and add an outgoing webhook for succeeded and failed builds pointing to `[you-site-url/.netlify/functions/syncDropbox]`
+Got to your Netlify project to settings/deploys#deploy-notifications and add an outgoing webhook for succeeded and failed builds pointing to `[you-site-url]/.netlify/functions/syncDropbox`
 
 ### 9. Add Environment Variables to Netlify
 Add the environment variables from your `.env` file to netlify at settings/deploys#environment-variables
