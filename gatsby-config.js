@@ -1,3 +1,5 @@
+require('dotenv').config({path: "./.env"})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -13,8 +15,18 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-dropbox`,
+      options: {
+        accessToken: process.env.DROPBOX_TOKEN,
+        extensions: ['.jpg', '.png', '.md'],
+        recursive: true,
+        createFolderNodes: true,
+      }
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
