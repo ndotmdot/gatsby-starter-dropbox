@@ -54,10 +54,10 @@ const Layout = ({ children, title, }) => {
         <footer className="container mt-4">
           <div className="row">
             <div className="col-6">
-              <div className="p">© {new Date().getFullYear()}, {Author}</div>
+              <div className="p-small">© {new Date().getFullYear()}, {Author}</div>
             </div>
             <div className="col-6">
-              <div className="p">
+              <div className="p-small">
                 Build with <a href="http://www.gatsby.org">Gatsby</a> and <a href="https://github.com/niklas-may/gatsby-starter-dropbox">Gatsby Starter Dropbox</a>
               </div>
             </div>
