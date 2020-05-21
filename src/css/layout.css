@@ -98,6 +98,10 @@ a.active {
   margin-top: calc(3rem * 1 * 1.2);
 }
 
+.mt-2 {
+  margin-top: calc(3rem * 2 * 1.2);
+}
+
 .mt-4 {
   margin-top: calc(3rem * 4 * 1.2);
 }
@@ -157,4 +161,10 @@ nav a {
 
 h1 {
   font-weight: bold;
+}
+
+/* Contact Page */
+
+.contact-details a {
+  display: block;
 }

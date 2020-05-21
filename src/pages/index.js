@@ -29,10 +29,10 @@ const IndexPage = ({data}) => {
   const { html: about } = data.allDropboxMarkdown.nodes[0].localFile.childMarkdownRemark
 
   return(
-    <Layout title="">
+    <Layout>
       <section className="container">
         <div className="row">
-          <div className="offset-6 col-6 mb-4 about" dangerouslySetInnerHTML={{__html: about}} />
+          <div className="offset-6 col-6 mt-2 mb-4 about" dangerouslySetInnerHTML={{__html: about}} />
         </div>
         <div className="row offset-2">
           {

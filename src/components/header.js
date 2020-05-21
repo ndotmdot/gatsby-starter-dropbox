@@ -7,8 +7,10 @@ const Header = ({ siteTitle }) => (
     <div className="container">
       <div className="row">
         <div className="col-6 page-title">
-          <div className="site-title p">
-            {siteTitle}
+          <div className="mb-1">
+            <div className="site-title p">
+              {siteTitle}
+            </div>
           </div>
           <nav className="p">
             <Link 
