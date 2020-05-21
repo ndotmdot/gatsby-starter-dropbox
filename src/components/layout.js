@@ -9,23 +9,52 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
+import SEO from "../components/seo"
 import Header from "./header"
 import "./layout.css"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title, }) => {
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+    {
+      allDropboxMarkdown(filter: {name: {eq: "Metadata.md"}}) {
+        nodes {
+          localFile {
+            name
+            childMarkdownRemark {
+              frontmatter {
+                Site_Name
+                Keywords
+                Description
+                Author
+                Language
+              }
+            }
+          }
         }
       }
     }
   `)
 
+  const {
+    Site_Name,
+    Keywords,
+    Description,
+    Author,
+    Language
+  } = data.allDropboxMarkdown.nodes[0].localFile.childMarkdownRemark.frontmatter
+
+
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <SEO
+        title={title}
+        siteName={Site_Name}
+        keywords={Keywords}
+        description={Description}
+        author={Author}
+        lang={Language}
+      />
+      <Header siteTitle={Site_Name} />
       <div
         style={{
           margin: `0 auto`,
