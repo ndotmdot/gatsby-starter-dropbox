@@ -10,10 +10,15 @@ const projectTeaser = project => {
   const title = project.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter.Title
 
   return(
-    <div className="w-50" key={title}>
+    <div className="col-7 project-teaser mb-1" key={title}>
       <Link to={slug}>
-        <h2>{title}</h2>
-        <Image fluid={heroImage} />
+        <header className="mb-1">
+          <h2>{title}</h2>
+          <div className="p arrow">→</div>
+        </header>
+        <div className="image">
+          <Image fluid={heroImage} />
+        </div>
       </Link>
     </div>
   )
@@ -21,17 +26,20 @@ const projectTeaser = project => {
 
 const IndexPage = ({data}) => {
   const { group: projects } = data.allDropboxFolder
+  const { html: about } = data.allDropboxMarkdown.nodes[0].localFile.childMarkdownRemark
 
   return(
     <Layout title="">
-      <section>
+      <section className="container">
         <div className="row">
+          <div className="offset-6 col-6 mb-4 about" dangerouslySetInnerHTML={{__html: about}} />
+        </div>
+        <div className="row offset-2">
           {
             projects.map(project => projectTeaser(project))
-          }
+          }  
         </div>
       </section>
-
     </Layout>
   )
 }
@@ -63,6 +71,16 @@ export const query = graphql`
                 }
               }
             }
+          }
+        }
+      }
+    }
+    allDropboxMarkdown(filter: {name: {eq: "About.md"}}) {
+      nodes {
+        localFile {
+          name
+          childMarkdownRemark {
+            html
           }
         }
       }

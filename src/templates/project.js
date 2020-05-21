@@ -14,33 +14,32 @@ const Project = ({data}) => {
 
   return (
     <Layout title={Title}>
-      <section>
-        <div className="row">
-          <div className="w-50">
-            <Image fluid={heroImage}  />
-          </div>
-          <div className="w-50">
-            <h1>{Title}</h1>
+      <section className="container">
+        <div class="row">
+          <div className="offset-6 col-6 mb-4">
+            <header className="mb-1">
+              <h1>{Title}</h1>
+            </header>
             <div dangerouslySetInnerHTML={{__html: description}} />
-            <p>© {Author}</p>
           </div>
         </div>
-      </section>
-      <section>
         <div className="row">
-          {
+          <div className="col-14 offset-2">
+            <Image fluid={heroImage}  />
+            {
             contentImages.map(image => {
               return(
                 <Image 
                   key={image.localFile.childImageSharp.fluid.originalName}
                   fluid={image} 
+                  className="mb-1"
                 />
               )
             })
           }
+          </div>
         </div>
-      </section>
-      
+      </section>      
     </Layout>
   )
 }
