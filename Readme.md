@@ -1,4 +1,10 @@
+# gatsby-starter-dropbox-workflow
 
+Manage your sites content directly form your local Dropbox. Simply drag-and-drop to deploy new content to your site, without leaving your local filesystem. Gatsby-Starter-Dropbox-Workflow works great for small to medium sites. It saves developers time and provides an easy workflow for editors.
+
+## How it Works
+
+At its core this starter uses [Gatsby](https://www.gatsbyjs.org/) as the frontend and [Netlify](https://www.netlify.com/) as the build system and could hosting provider. The Dropbox integration is done with the plugin [gatsby-source-dropbox](https://www.npmjs.com/package/gatsby-source-dropbox) and the package [dropbox-tirgger-netlify](https://www.npmjs.com/package/dropbox-trigger-netlify). The later one is used in a Netlify cloud function within the site's repo and handles automatic deploys and cleanup via webhook calls from your Dropbox App and your Netlify Project.
 
 ## Installation
 
