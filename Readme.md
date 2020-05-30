@@ -48,4 +48,3 @@ Add the environment variables from your `.env` file to netlify at settings/deplo
 
 ### 10. Add Webhook to Dropbox App
 Go to [Dropbox App Console](https://www.dropbox.com/developers/apps) to you app and add a webhook pointing to you `NETLIFY_BUILD_HOOK`
-
