@@ -77,7 +77,7 @@ async function createPostPages (graphql, actions, reporter) {
     const name = group.nodes[0].name
     const path = group.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter.slug
 
-    reporter.info(`Creating project page: ${path}`)
+    reporter.info(`Creating post page: ${path}`)
 
     createPage({
       path,

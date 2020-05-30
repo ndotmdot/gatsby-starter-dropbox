@@ -4,9 +4,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 
 const Post = ({data}) => {
-  console.log("Post -> data", data)
   const { frontmatter, html } = data.allDropboxFolder.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark
-  // console.log("Post -> content", content)
   const { title } = frontmatter
 
   return (
