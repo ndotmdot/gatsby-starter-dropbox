@@ -11,7 +11,7 @@ const IndexPage = ({data}) => {
     <Layout>
       <section className="container">
         <div className="row">
-          <div className="offset-6 col-6 about">
+          <div className="offset-6 col-9 about">
             <div  dangerouslySetInnerHTML={{__html: about}} />
             {
               posts.map(post => {

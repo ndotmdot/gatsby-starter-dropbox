@@ -1,6 +1,6 @@
 html {
   font-size: 62.5%; 
-  font-size: 85%; 
+  font-size: 81.3%; 
   background-color: #fafafa;
   padding: 8px 0;
 }
@@ -162,9 +162,9 @@ nav a {
 /* Post Template */
 
 .post-template header h1 {
-  font-size: 160px;
+  font-size: 162px;
   line-height: 1em;
-  letter-spacing: -7px;
+  letter-spacing: -6px;
 }
 
 .post {
