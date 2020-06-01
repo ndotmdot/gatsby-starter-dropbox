@@ -2,9 +2,10 @@ require('dotenv').config({path: "./.env"})
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    siteName: `Gatsby Starter Dropbox Workflow`,
+    description: `Automatic Deployment from File System`,
+    author: `Niklas May <hello@niklas-may.de>`,
+    keywords: ['Gatsby', 'Dropbox', 'Netlify', 'Starter',]
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

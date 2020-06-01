@@ -1,10 +1,13 @@
 html {
   font-size: 62.5%; 
+  font-size: 85%; 
   background-color: #fafafa;
+  padding: 8px 0;
 }
+
 body {
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
-  line-height: 1.2;
+  line-height: 1.25;
   font-weight: normal;
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333; 
@@ -16,13 +19,19 @@ body {
   padding: 12px 0;
 }
 
+
 .container {
   position: relative;
   width: 100%;
+  max-width: 100vw;
   margin: 0 auto;
   padding: 0 12px;
   box-sizing: border-box; 
 }
+.container * {
+  max-width: 100%;
+}
+
 .row {
   width: 100%;
   display: flex;
@@ -32,7 +41,7 @@ body {
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-13, .col-14, .col-15, .col-16 {
   box-sizing: border-box;
   flex-direction: column;
-  padding: 0 12px;
+  padding: 0 15px;
 }
 
 .col-1  { width: calc(100% / 16);}
@@ -57,14 +66,29 @@ body {
 .offset-4  { margin-left: calc(100% / 16 * 4);}
 .offset-6  { margin-left: calc(100% / 16 * 6);}
 
+
+.grid-overlay {
+  display: none;
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  background-image: url(../images/baseline.png);
+  background-size: 100% calc(4rem * 1.25);
+}
+
+.grid-overlay .row .col-1 .dummy{
+  background-color: #EFEFEF;
+  height: 100vh;
+}
+
 /* Typography */
 
 p, .p, .p-small, h1, h2, h3, h4, h5, h6 {
   margin: 0 !important;
   padding: 0 !important;
-  font-size: 3rem;
-  font-weight: normal;
-  line-height: 1.2;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.25;
 }
 
 .p-small {
@@ -72,7 +96,7 @@ p, .p, .p-small, h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: underline;
   color: inherit;
 }
 
@@ -86,33 +110,34 @@ a.active {
 
 /* Spacing */
 
-.mb-05 {
-  margin-bottom: calc(3rem * 1.2 * 0.5);
-}
-
-.mb-1 {
-  margin-bottom: calc(3rem * 1.2);
+.mb-2 {
+  margin-bottom: calc(2rem * 1.25);
 }
 
 .mb-4 {
-  margin-bottom: calc(3rem * 4 * 1.2);
+  margin-bottom: calc(4rem * 1.25);
 }
 
-.mt-1 {
-  margin-top: calc(3rem * 1 * 1.2);
+.mb-8 {
+  margin-bottom: calc(8rem * 1.25);
 }
 
-.mt-2 {
-  margin-top: calc(3rem * 2 * 1.2);
+.mb-8 {
+  margin-bottom: calc(8rem * 1.25);
 }
 
-.mt-4 {
-  margin-top: calc(3rem * 4 * 1.2);
+.mt-16 {
+  margin-top: calc(12rem * 1.25);
 }
+
+.mb-10 {
+  margin-bottom: calc(10rem * 1.25);
+}
+
 
 /* Header */
 
-.site-header {
+/* .site-header {
   width: 100%;
   position: fixed;
   z-index: 1;
@@ -125,50 +150,60 @@ a.active {
 nav a {
   display: block;
   width: auto;
-}
-
-/* Home Page */
-
-.project-teaser a:hover {
-  text-decoration: none;
-}
-
-.project-teaser header {
-  display: flex;
-}
-
-.project-teaser .arrow {
-  box-sizing: border-box;
-  width: 5%;
-  padding-left: 0;
-}
-
-.project-teaser h2 {
-  width: 58.5%;
-}
-
-@keyframes bounce {
-  0%   { padding-left: 0; }
-  50%  { padding-left: 0.5em; }
-  100% { padding-left: 0; }
-}
-
-.project-teaser:hover .arrow {
-  animation: bounce 750ms ease-in-out infinite;
-}
-
-.project-teaser h2 {
-  font-weight: bold;
-}
-
-/* Project Template */
-
-h1 {
-  font-weight: bold;
-}
+} */
 
 /* Contact Page */
 
 .contact-details a {
   display: block;
+}
+
+
+/* Post Template */
+
+.post-template header h1 {
+  font-size: 160px;
+  line-height: 1em;
+  letter-spacing: -7px;
+}
+
+.post {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.post h2 {
+  width: 22%;
+  position: absolute;
+}
+
+.post p,
+.post pre {
+  margin-left: 32% !important;
+  margin-bottom: calc(4rem * 1.25) !important;
+}
+
+.post p {
+  width: 60%;
+}
+
+.post .gatsby-resp-image-wrapper {
+  width: 113%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+
+.post pre {
+  background: black;
+  overflow: scroll;
+  box-sizing: border-box;
+  color: white;
+  position: relative;
+  padding: calc(2rem * 1.25);
+  border-radius: 4px;
+}
+
+.post pre code {
+  transform: translate3d(50px, 0, 0);
 }

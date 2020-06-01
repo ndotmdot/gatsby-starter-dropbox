@@ -9,13 +9,15 @@ const Post = ({data}) => {
 
   return (
     <Layout title={title}>
-      <section className="container">
+      <section className="container post-template mt-16">
         <div class="row">
-          <div className="offset-6 col-6 mb-4">
-            <header className="mb-1">
+          <div className="">
+            <header className="mb-8">
               <h1>{title}</h1>
             </header>
-            <div dangerouslySetInnerHTML={{__html: html}} />
+            <div className="col-13 offset-3" >
+              <div className="post" dangerouslySetInnerHTML={{__html: html}} />
+            </div>
           </div>
         </div>
       </section>      

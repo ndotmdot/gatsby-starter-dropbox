@@ -10,19 +10,13 @@ import "../css/layout.css"
 const Layout = ({ children, title, }) => {
   const data = useStaticQuery(graphql`
     {
-      allDropboxMarkdown(filter: {name: {eq: "Metadata.md"}}) {
+      allSite {
         nodes {
-          localFile {
-            name
-            childMarkdownRemark {
-              frontmatter {
-                Site_Name
-                Keywords
-                Description
-                Author
-                Language
-              }
-            }
+          siteMetadata {
+            description
+            keywords
+            author
+            siteName
           }
         }
       }
@@ -30,31 +24,50 @@ const Layout = ({ children, title, }) => {
   `)
 
   const {
-    Site_Name,
-    Keywords,
-    Description,
-    Author,
-    Language
-  } = data.allDropboxMarkdown.nodes[0].localFile.childMarkdownRemark.frontmatter
+    siteName,
+    keywords,
+    description,
+    author,
+  } = data.allSite.nodes[0].siteMetadata
 
 
   return (
     <div className="main-wrapper">
       <SEO
         title={title}
-        siteName={Site_Name}
-        keywords={Keywords}
-        description={Description}
-        author={Author}
-        lang={Language}
+        siteName={siteName}
+        keywords={keywords}
+        description={description}
+        author={author}
+        lang="en"
       />
-      <Header siteTitle={Site_Name} />
+      <div className="container grid-overlay">
+        <div className="row">
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+          <div className="col-1"><div className="dummy" /></div>
+        </div>
+      </div>
+      <Header siteTitle={siteName} />
       <main>
         {children}
         <footer className="container mt-4">
           <div className="row">
             <div className="col-6">
-              <div className="p-small">© {new Date().getFullYear()}, {Author}</div>
+              <div className="p-small">© {new Date().getFullYear()}, {author}</div>
             </div>
             <div className="col-6">
               <div className="p-small">
