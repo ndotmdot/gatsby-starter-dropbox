@@ -7,7 +7,7 @@ import Header from "./header"
 import "../css/normalize.css"
 import "../css/layout.css"
 
-const Layout = ({ children, title, }) => {
+const Layout = ({ children, title, nav, className }) => {
   const data = useStaticQuery(graphql`
     {
       allSite {
@@ -61,10 +61,10 @@ const Layout = ({ children, title, }) => {
           <div className="col-1"><div className="dummy" /></div>
         </div>
       </div>
-      <Header siteTitle={siteName} />
-      <main>
+      <main className={className} >
+      <Header siteTitle={siteName} nav={nav} />
         {children}
-        <footer className="container mt-4">
+        {/* <footer className="container mt-4">
           <div className="row">
             <div className="col-6">
               <div className="p-small">© {new Date().getFullYear()}, {author}</div>
@@ -75,7 +75,7 @@ const Layout = ({ children, title, }) => {
               </div>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </main>
     </div>
   )
