@@ -10,29 +10,31 @@ const IndexPage = ({data}) => {
 
   const renderMore = () => (
     <>
-      <div className="my-2">
+      <div className="col-3 offset-3">
         <p>Learn more:</p>
       </div>
-      {
-        posts.map(post => {
-          const { title, slug } = post.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter
-          return  <Link to={slug} key={slug} className="p a-internal">{title}</Link>
+      <div className="col-10">
+        {
+          posts.map(post => {
+            const { title, slug } = post.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter
+            return  <div className="d-block"><Link to={slug} key={slug} className="p a-internal">{title}</Link></div>
+          }
+          )
         }
-        )
-      }
+      </div>
     </>
   )
 
   return(
     <Layout className="home-template">
       <section className="container nav-offset">
-        <div className="row pb-4">
+        <div className="row">
           <div className="offset-6 offset-s-0 col-8 col-s-14 about">
             <div  dangerouslySetInnerHTML={{__html: about}} />
-            <div className="s-none">
-              {renderMore()}
-            </div>
           </div>
+        </div>
+        <div className="row pt-2 pb-4">
+          {renderMore()}
         </div>
       </section>
       <section className="home-title">
