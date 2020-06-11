@@ -5,9 +5,8 @@ html {
 }
 
 body {
-  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  font-size: 1.5em;
   line-height: 1.3;
-  /* letter-spacing: -0.15px; */
   font-weight: normal;
   font-family: -apple-system, "San Francisco", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #005FF8; 
@@ -62,37 +61,17 @@ main {
 .col-15 { width: calc(100% / 16 * 15);}
 .col-16 { width: 100%;}
 
-
 .offset-2  { margin-left: calc(100% / 16 * 2);}
 .offset-3  { margin-left: calc(100% / 16 * 3);}
 .offset-4  { margin-left: calc(100% / 16 * 4);}
 .offset-6  { margin-left: calc(100% / 16 * 6);}
 .offset-7  { margin-left: calc(100% / 16 * 7);}
 
-.grid-overlay {
-  display: none;
-  position: fixed;
-  z-index: -1;
-  width: 100%;
-  background-image: url(../images/baseline.png);
-  background-size: 100% calc(4rem * 1.3);
-}
-
-.grid-overlay .row .col-1 .dummy{
-  background-color: #EFEFEF;
-  height: 100vh;
-}
 
 /* Utility */
 
 .d-block {
   display: block !important;
-}
-
-@media screen and (max-width: 500px) {
-  .d-s-none {
-    display: none !important;
-  }
 }
 
 /* Typography */
@@ -114,13 +93,11 @@ p, .p, .p-small, h1, h2, h3, h4, h5, h6 {
 
 .text-large {
   font-size: 14rem;
-  /* font-size: 120px; */
   line-height: 1em;
   letter-spacing: -0.025em;
   width: 90%;
   transform: translate3d(-0.5rem, -0.5rem, 0);
 }
-
 
 a {
   text-decoration: underline;
@@ -310,7 +287,6 @@ a.active {
   overflow: hidden;
 }
 
-
 .post pre {
   overflow: scroll;
   box-sizing: border-box;
@@ -318,8 +294,6 @@ a.active {
   padding: calc(2rem * 1.3);
   border-radius: 4px;
 }
-
-
 
 
 @media screen and (max-width: 500px) {
@@ -430,7 +404,4 @@ a.active {
   html {
     font-size: 110%; 
   }
-  /* .home-title {
-    width: 80%;
-  } */
 }
