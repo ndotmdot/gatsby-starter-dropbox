@@ -48,7 +48,7 @@ const RelatedSection = ({currentPostId}) => {
           <Link to="/" className="p a-internal" >
             Home
           </Link>
-          <a href="https://github.com/niklas-may/gatsby-starter-dropbox" target="_blank" className="p a-internal">Github</a>
+          <a href="https://github.com/niklas-may/gatsby-starter-dropbox" target="_blank" rel="noopener noreferrer" className="p a-internal">Github</a>
         </div>
       </div>
     </section>

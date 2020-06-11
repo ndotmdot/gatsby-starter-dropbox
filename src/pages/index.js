@@ -8,33 +8,27 @@ const IndexPage = ({data}) => {
   const { title } = data.allDropboxMarkdown.nodes[0].localFile.childMarkdownRemark.frontmatter
   const { group: posts } = data.allDropboxFolder
 
-  const renderMore = () => (
-    <>
-      <div className="col-3 offset-3">
-        <p>Learn more:</p>
-      </div>
-      <div className="col-10">
-        {
-          posts.map(post => {
-            const { title, slug } = post.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter
-            return  <div className="d-block"><Link to={slug} key={slug} className="p a-internal">{title}</Link></div>
-          }
-          )
-        }
-      </div>
-    </>
-  )
-
   return(
     <Layout className="home-template">
-      <section className="container nav-offset">
+      <section className="container">
         <div className="row">
-          <div className="offset-6 offset-s-0 col-8 col-s-14 about">
-            <div  dangerouslySetInnerHTML={{__html: about}} />
+          <div className="offset-7 offset-s-0 col-8 col-s-15 about">
+            <div dangerouslySetInnerHTML={{__html: about}} />
           </div>
         </div>
         <div className="row pt-2 pb-4">
-          {renderMore()}
+          <div className="col-4 col-s-16 offset-3 offset-s-0 mb-2">
+            <p>Learn more:</p>
+          </div>
+          <div className="col-9 col-s-16">
+            {
+              posts.map(post => {
+                const { title, slug } = post.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter
+                return  <div className="d-block"><Link to={slug} key={slug} className="p a-internal">{title}</Link></div>
+              }
+              )
+            }
+          </div>
         </div>
       </section>
       <section className="home-title">
@@ -45,9 +39,6 @@ const IndexPage = ({data}) => {
             </div>
           </div>
         </div>
-      </section>
-      <section className="mobile-articles">
-        {renderMore()}
       </section>
     </Layout>
   )

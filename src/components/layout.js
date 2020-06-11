@@ -41,41 +41,9 @@ const Layout = ({ children, title, nav, className }) => {
         author={author}
         lang="en"
       />
-      <div className="container grid-overlay">
-        <div className="row">
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-          <div className="col-1"><div className="dummy" /></div>
-        </div>
-      </div>
       <main className={className} >
-      <Header siteTitle={siteName} nav={nav} />
+        <Header siteTitle={siteName} nav={nav} />
         {children}
-        {/* <footer className="container mt-4">
-          <div className="row">
-            <div className="col-6">
-              <div className="p-small">© {new Date().getFullYear()}, {author}</div>
-            </div>
-            <div className="col-6">
-              <div className="p-small">
-                Build with <a href="http://www.gatsby.org">Gatsby</a> and <a href="https://github.com/niklas-may/gatsby-starter-dropbox">Gatsby Starter Dropbox</a>
-              </div>
-            </div>
-          </div>
-        </footer> */}
       </main>
     </div>
   )
