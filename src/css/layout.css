@@ -219,7 +219,7 @@ a.active {
 }
 
 .github-icon svg path {
-  fill: rgb(177, 184, 197);
+  fill: #005FF8;
 }
 
 /* Home Template */
@@ -404,13 +404,13 @@ a.active {
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1200px) {
   html {
     font-size: 80%; 
   }
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1600px) {
   html {
     font-size: 90%; 
   }
