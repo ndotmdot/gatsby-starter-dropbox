@@ -1,7 +1,7 @@
 {
   "name": "gatsby-starter-dropbox-workflow",
   "private": true,
-  "description": "Host Page Data on Dropbox and Deployment from File System",
+  "description": "Host your site content on dropbox and deploy it from file system",
   "version": "0.1.0",
   "author": "Niklas May <hello@niklas-may.de>",
   "dependencies": {
