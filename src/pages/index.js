@@ -10,7 +10,7 @@ const IndexPage = ({data}) => {
 
   return(
     <Layout className="home-template">
-      <section className="container">
+      <section className="container intro">
         <div className="row">
           <div className="offset-7 offset-s-0 col-8 col-s-15 about">
             <div dangerouslySetInnerHTML={{__html: about}} />

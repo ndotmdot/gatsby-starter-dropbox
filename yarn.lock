@@ -7257,10 +7257,10 @@ gatsby-remark-relative-images@^0.3.0:
     slash "^2.0.0"
     unist-util-select "^1.5.0"
 
-gatsby-source-dropbox@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/gatsby-source-dropbox/-/gatsby-source-dropbox-0.2.2.tgz#c915734c3d8704b2b27446be84a4d240a2f87fe4"
-  integrity sha512-Pv4zgbnqiy36CPKHGigQZN3HH9B67KvVOI4FPesPFusPEJzOETTvaYhSyjrGzVYe2tYwuWJliLdTzihqNLICSg==
+gatsby-source-dropbox@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/gatsby-source-dropbox/-/gatsby-source-dropbox-0.2.3.tgz#0cefb88f183d6d88b691a2c0bc322d7b251ea8d9"
+  integrity sha512-/2kcWxDgyezh830PMkO7Ufl0CBC1HejDYzxWO2hrOjg0VU3krsO+JZ5d53cVVAuCUAzeSjcnlBXYU13/KSga+g==
   dependencies:
     "@babel/preset-env" "^7.9.6"
     "@babel/runtime" "^7.9.6"
