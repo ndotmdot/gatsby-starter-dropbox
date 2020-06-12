@@ -1,15 +1,13 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "gatsby-starter-dropbox-workflow",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Host Page data on Dropbox and deployment from File System",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Niklas May <hello@niklas-may.de>",
   "dependencies": {
     "dotenv": "^8.2.0",
     "gatsby": "^2.21.22",
     "gatsby-image": "^2.4.3",
-    "gatsby-plugin-manifest": "^2.4.2",
-    "gatsby-plugin-offline": "^3.2.1",
     "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-sharp": "^2.6.2",
     "gatsby-remark-dropbox-images": "^1.0.3",

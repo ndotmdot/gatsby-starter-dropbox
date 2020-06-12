@@ -219,7 +219,7 @@ a.active {
 }
 
 .github-icon svg path {
-  fill: #005FF8;
+  fill: rgb(177, 184, 197);
 }
 
 /* Home Template */

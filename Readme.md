@@ -1,10 +1,18 @@
-# gatsby-starter-dropbox-workflow
+# Gatsby Starter Dropbox Workflow
 
-Manage your sites content directly form your local Dropbox. Simply drag-and-drop to deploy new content to your site, without leaving your local filesystem. Gatsby-Starter-Dropbox-Workflow works great for small to medium sites. It saves developers time and provides an easy workflow for editors.
+#### This starter is not about design. It is about a workflow for content editing. Manage your sites content directly form your local Dropbox. Create a page structure with folders. Save content in markdown and as image files. Simply drag-and-drop the "Content" folder into the "_Update" folder to deploy your site with new content. *Without leaving your local filesystem.* 
+
+Learn more on [demo site](http://gatsby-starter-dropbox-workflow.netlify.app/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/91875e72-398e-488f-b45a-5b0d519a4acd/deploy-status)](https://app.netlify.com/sites/gatsby-starter-dropbox-workflow/deploys)
+
+---
 
 ## How it Works
 
 At its core this starter uses [Gatsby](https://www.gatsbyjs.org/) as the frontend and [Netlify](https://www.netlify.com/) as the build system and could hosting provider. The Dropbox integration is done with the plugin [gatsby-source-dropbox](https://www.npmjs.com/package/gatsby-source-dropbox) and the package [dropbox-tirgger-netlify](https://www.npmjs.com/package/dropbox-trigger-netlify). The later one is used in a Netlify cloud function within the site's repo and handles automatic deploys and cleanup via webhook calls from your Dropbox App and your Netlify Project.
+
+---
 
 ## Installation
 
@@ -23,17 +31,7 @@ DROPBOX_TOKEN=Your-Dropbox-Token
 ```
 
 ### 4. Add folders to Dropbox App
-Go to your Dropbox app folder  at `./Apps/[your-dropbox-app-name]` and add the following folders.
-
-```markdown
-.
-+-- _Update
-+-- Content
-|   +--Whatever Files you need.md
-|   +--Whatever Folders you need
-```
-
-Alternatively you can [download the demo content](#) to make the starter works like in this demo.
+To get this starter running, [download the demo content](https://www.dropbox.com/s/8iiix5jitkbresb/gatsby-starter-dropbox-workflow-demo-content.zip?dl=0) and save the unizipped content in your Dropbox app folder  at `./Apps/[your-dropbox-app-name]`.
 
 ### 5. Deploy Site to Netlify
 
@@ -54,3 +52,5 @@ Add the environment variables from your `.env` file to netlify at settings/deplo
 
 ### 10. Add Webhook to Dropbox App
 Go to [Dropbox App Console](https://www.dropbox.com/developers/apps) to you app and add a webhook pointing to you `NETLIFY_BUILD_HOOK`
+
+
