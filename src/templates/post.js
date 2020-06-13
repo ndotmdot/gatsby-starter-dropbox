@@ -12,7 +12,7 @@ const Post = ({data, pageContext}) => {
   return (
     <Layout title={title} nav={true} className="post-template" >
       <section className="post-content container mt-16 mt-s-8 mb-8">
-        <div class="row">
+        <div className="row">
           <header className="col-15 col-s-16 mb-8">
             <h1 className="text-large" >{title}</h1>
           </header>
