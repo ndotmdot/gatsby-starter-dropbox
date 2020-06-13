@@ -3,7 +3,7 @@ require('dotenv').config({path: "./.env"})
 module.exports = {
   siteMetadata: {
     siteName: `Gatsby Starter Dropbox Workflow`,
-    description: `Build your Gatsby site from data hosted on Dropbox. Deploy new content with drag and drop, directly from your file system.`,
+    description: `Build your site from data hosted on Dropbox. Deploy new content with drag-and-drop, directly from your file system.`,
     author: `Niklas May <hello@niklas-may.de>`,
     keywords: ['Gatsby', 'Dropbox', 'Netlify', 'Starter',]
   },
