@@ -6,6 +6,7 @@ import SEO from "../components/seo"
 import Header from "./header"
 import "../css/normalize.css"
 import "../css/layout.css"
+import ogImage from "../images/og-image.png"
 
 const Layout = ({ children, title, nav, className }) => {
   const data = useStaticQuery(graphql`
@@ -39,6 +40,7 @@ const Layout = ({ children, title, nav, className }) => {
         keywords={keywords}
         description={description}
         author={author}
+        ogImage={ogImage}
         lang="en"
       />
       <main className={className} >
