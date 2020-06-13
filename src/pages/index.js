@@ -9,7 +9,7 @@ const IndexPage = ({data}) => {
   const { group: posts } = data.allDropboxFolder
 
   return(
-    <Layout className="home-template">
+    <Layout className="home-template" title="">
       <section className="container intro">
         <div className="row">
           <div className="offset-7 offset-s-0 col-8 col-s-15 about">
@@ -24,7 +24,7 @@ const IndexPage = ({data}) => {
             {
               posts.map(post => {
                 const { title, slug } = post.nodes[0].dropboxMarkdown[0].localFile.childMarkdownRemark.frontmatter
-                return  <div className="d-block"><Link to={slug} key={slug} className="p a-internal">{title}</Link></div>
+                return  <div className="d-block" key={slug}><Link to={slug} className="p a-internal">{title}</Link></div>
               }
               )
             }
