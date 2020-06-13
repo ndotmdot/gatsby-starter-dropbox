@@ -797,10 +797,10 @@ define-properties@^1.1.2:
   dependencies:
     object-keys "^1.0.12"
 
-dropbox-trigger-netlify@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/dropbox-trigger-netlify/-/dropbox-trigger-netlify-0.1.1.tgz#615fd1407b04a54c2cd7b44a36d5bb267866287c"
-  integrity sha512-g7GAzFitf2qbr7v/P+OqOu0BA0jk+0wiBO/JyHSetB/IupS9G8Q1J5Kv5mGnBZkBQz6/VgxL14EpHMHTOHKKqw==
+dropbox-trigger-netlify@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/dropbox-trigger-netlify/-/dropbox-trigger-netlify-0.1.3.tgz#949ee9aba81935ebdd88e85a9a4fb14278217687"
+  integrity sha512-m+3g9yI9vw+ZC8gSQdEIcDGjDuPbcq0GJFY9lt7wtideUJYneIz01AjhqQj2v3Y7W7X9CTd2qinBYtajlwDHUg==
   dependencies:
     "@babel/preset-env" "^7.0.0"
     "@babel/runtime" "^7.0.0"
